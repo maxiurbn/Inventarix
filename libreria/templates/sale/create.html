@@ -1,0 +1,138 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Friki Gamer Chile Punto de Venta</title>
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+<link href="{% static 'js/sweetalert2.min.css' %}" rel="stylesheet"/>
+<script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'js/jquery-confirm.min.css' %}">
+<script src="{% static 'js/jquery-confirm.min.js' %}"></script>
+<script src="{% static 'js/moment-with-locales.js' %}"></script>
+<script src="{% static 'js/moment.js' %}"></script>
+<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+<script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
+<link href="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet"/>
+<script src="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<link rel="icon" href="{% static 'imagenes/logo.png' %}" class="rounded-circle"/>
+<script src="{% static 'js/form_sale.js' %}?v=1"></script>
+<script src="{% static 'js/moment-with-locales.js' %}"></script>
+<script src="{% static 'js/moment.js' %}"></script>
+<script src="{% static 'js/functions.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'js/mystyle.css' %}">
+
+<form action="" method="post">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">
+                {% if action == 'add' %}
+                    <i class="fas fa-plus"></i>
+                {% else %}
+                    <i class="fas fa-edit"></i>
+                {% endif %}
+                {{ title }}
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-boxes"></i> Detalle de productos</h3>
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" name="action" value="{{ action }}">
+                            <div class="form-group">
+                                <label>Buscador de productos:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search"
+                                           placeholder="Ingrese una descripción de producto" autocomplete="off">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-danger btn-flat"><i
+                                                class="fas fa-times"></i></button>
+                                      </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <button type="button" class="btn btn-danger btn-xs btn-flat btnremoveAll">
+                                Eliminar Todos mis Items <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <hr>
+                            <table class="table table-bordered" id="tblProducts">
+                                <thead>
+                                <tr>
+                                    <th>Eliminar</th>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>PVP</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-shopping-cart"></i> Datos de la factura</h3>
+                        </div>
+                        <div class="card-body">
+                           <div class="form-group">
+                                <label>Fecha de venta:</label>
+                                <div style="position: relative;">
+                                    {{ form.date_joined }}
+                                </div>
+                           </div>
+                            <div class="form-group">
+                                <label>Subtotal:</label>
+                                {{ form.subtotal }}
+                            </div>
+                            <div class="form-group">
+                                <label>IVA:</label>
+                                {{ form.iva }}
+                            </div>
+                            <div class="form-group">
+                                <label>Total a pagar:</label>
+                                {{ form.total }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-flat">
+                <i class="fas fa-save"></i> Guardar registro
+            </button>
+            <a href="{% url 'sale_list' %}" class="btn btn-danger btn-flat">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </div>
+</form>
+
+
+ 
+    
+
+  <script src="{% static 'index/DataTables/datatables.min.js' %}"></script>
+  <script src="{% static 'index/DataTables/datatables.min.js' %}"></script>
+  <script src="{% static 'index/DataTables/Buttons-2.0.1/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'index/DataTables/Buttons-2.0.1/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'index/DataTables/Buttons-2.0.1/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'index/DataTables/Buttons-2.0.1/js/pdfmaker.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'index/js/main.js' %}"></script>
+{% endblock %}
+

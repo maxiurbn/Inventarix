@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+    
+    {% block head_list %}
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">
+              <a href="{% url 'index' %}">
+                <i class="fas fa-home"></i>
+              </a>
+              
+              <h1 style="text-align: center;">Lista de Categorías <i class="fas fa-tags"></i></h1>
+            </h3>
+        </div>
+        <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                      
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                </thead>
+                <tbody>
+                    {% for categoria in categorias %}
+                    <tr>
+                       
+                        <td>{{ categoria.nombre }}</td>
+                        <td> 
+                            <a name="" id="" class="btn btn-info" href="{% url 'editar_categoria' categoria.id %}" role="button"><i class="fas fa-pencil-alt"></i></a> 
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_categoria' categoria.id %}" role="button"><i class="fas fa-trash-alt"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <div class="card-footer">
+                    {% block buttons_list %}
+                        <a href="{% url 'crear_categoria' %}" class="btn btn-primary btn-flat btnTest">
+                            <i class="fas fa-plus"></i> Nuevo registro
+                        </a>
+                    {% endblock %}
+                </div>
+            </table>
+        </div>
+        </div> 
+    </div>
+{% endblock %}

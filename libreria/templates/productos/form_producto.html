@@ -1,0 +1,47 @@
+<form enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+    <div class="mb-3">
+
+      {% if campo.field.widget.input_type == 'file' and campo.value %}
+      <img src="{{MEDIA_URL}}/imagenes/{{campo.value}}" width="100" alt="" srcset="">
+      {% endif %} 
+
+      <div class="form-group">
+        {{ formulario.id.label }}
+        {{ formulario.id }}
+      </div>
+      <div class="form-group">
+        {{ formulario.nombre.label }}
+        {{ formulario.nombre }}
+      </div>
+      <div class="form-group">
+        {{ formulario.imagen.label }}
+        {{ formulario.imagen }}
+      </div>
+      <div class="form-group">
+        {{ formulario.categoria.label }}
+        {{ formulario.categoria }}
+      </div>
+      <div class="form-group">
+        {{ formulario.stock.label }}
+        {{ formulario.stock }}
+      </div>
+      <div class="form-group">
+        {{ formulario.precio_compra.label }}
+        {{ formulario.precio_compra }}
+      </div>
+      <div class="form-group">
+        {{ formulario.precio_venta.label }}
+        {{ formulario.precio_venta }}
+      </div>
+      <div class="form-group">
+        {{ formulario.agregado.label }}
+        {{ formulario.agregado }}
+      </div>
+      <div class="form-group">
+        {{ formulario.lugar.label }}
+        {{ formulario.lugar }}
+      </div></div>
+  <input name="" id="" class="btn btn-success" type="submit" value="Enviar información">
+  <a name="" id="" class="btn btn-primary" href="{% url 'productos' %}" role="button">Cancelar</a>
+</form>
